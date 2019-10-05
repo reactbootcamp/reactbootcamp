@@ -1,9 +1,6 @@
 @import "{{ jekyll-theme-midnight }}";
 
 #header {
-  display: none;
+  display: none !important;
 }
 
-body {
-  display: none;
-}
