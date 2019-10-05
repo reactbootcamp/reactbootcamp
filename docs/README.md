@@ -1,9 +1,8 @@
 # ReactBootCamp
 
 ## What you will learn
-1. What you’ll learn​
-1. Intro to JavaScript​
-1. ES6 Highlights​
+
+1. [ES6 Highlights​](./es6Intro.md)
 1. React Intro​
 1. Hello World!​
 1. Components, stateful, stateless, functional​
@@ -22,4 +21,3 @@
 1. App Exercise 2​
 1. Bonus: Puppeteer intro and how it improves your testing
 
-x
