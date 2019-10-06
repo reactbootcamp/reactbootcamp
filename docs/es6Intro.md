@@ -1,6 +1,4 @@
-# ES6 Introduction
-
-## ES6?  What's this?
+# ES6?  What's this?
 
 ES=ECMAScript. ECMA = European Computer Manfucatures Association -- but simply known as ECMA.  It is a standards organisation
 
@@ -9,6 +7,8 @@ ES6 is an evolution of Javascript.  The legacy Javascript that is still prevalen
 ### what are the differences?
 
 There are many... some you will find more useful than others, and some you will not be able to live without. Let's start with some simple things.
+
+<hr />
 
 ## Defining variables and Block Scope
 
@@ -85,7 +85,9 @@ the value of i outside the block is 100
 
 ```
 
-const is immuatble -- i.e. it cannot be changed.  Also, when defining a const variable, it must be assigned a value.
+Aside: I was cheeky and snuck in templating.  Notice the ${expression} in the console statement :-)  More on this later.
+
+const is immuttable -- i.e. it cannot be changed.  Also, when defining a const variable, it must be assigned a value.
 
 Incorrect:
 
@@ -99,14 +101,16 @@ Correct:
 const myVar = 1;
 ```
 
+<hr />
+
 ## Arrow Functions
 
-Arrow functions are one of the most important changes with ES6.  If you've written ES5 Javascript, then you will appreciate the difficulties with preserving 'this'.  Arrow functions not only bring a cleaner syntax -- and less keystrokes -- but also preserve the vaue of this making our code much cleaner.  It also makes our code more robust if we don't have to worry about 'this'.
+Arrow functions are one of the most important changes with ES6.  If you've written ES5 Javascript, then you will appreciate the difficulties with preserving 'this'.  Arrow functions not only bring a cleaner syntax -- and less keystrokes -- but also preserve the value of this making our code much cleaner.  It also makes our code more robust if we don't have to worry about 'this'.
 
-Here's an example from a React app.  Notice how we are using an Arrow function in the second setInterval.  This is a React class -- and we expect THIS to reference the class.  With the 'non-arrow implementation, it does not.  it represent Window.  But with the Arrow function implementation, it does.  Making life simpler.
+Here's an example from a React app.  Notice how we are using an Arrow function in the second setInterval.  This is a React class -- and we expect THIS to reference the class.  With the 'non-arrow' implementation, it does not.  it represent Window.  But with the Arrow function implementation, it does.  Making life simpler.
 
 ```javascript
-class Helper1 extends React.Component {
+class MyComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -124,19 +128,69 @@ class Helper1 extends React.Component {
 
 ```
 
-This yields: (Note Window vs Helper1)
+This yields: (Note Window vs MyComponent)
 
 ```bash
-11:06:50.355 Helper1.jsx:15 Helper1 {props: {…}, context: {…}, refs: {…}, updater: {…}, onClick: ƒ, …}
-11:06:51.354 Helper1.jsx:10 Window {parent: Window, postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, …}
-11:06:51.355 Helper1.jsx:15 Helper1 {props: {…}, context: {…}, refs: {…}, updater: {…}, onClick: ƒ, …}
-11:06:52.354 Helper1.jsx:10 Window {parent: Window, postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, …}
+11:06:50.355 .... MyComponent {props: {…}, context: {…}, refs: {…}, updater: {…}, onClick: ƒ, …}
+11:06:51.354 .... Window {parent: Window, postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, …}
+11:06:51.355 .... MyComponent {props: {…}, context: {…}, refs: {…}, updater: {…}, onClick: ƒ, …}
+11:06:52.354 .... Window {parent: Window, postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, …}
 
 ```
 
 ### Arrow Function Summary
 
-In an arrow function, "this" represents the **owner** of the functionb.  Without an arrow, "this" represents the **object that calls the function**.
+In an arrow function, "this" represents the **owner** of the function.  Without an arrow, "this" represents the **object that calls the function**.
+
+<hr />
+
+## Parameters and Defaults
+
+This is another much needed addition in ES6.  Essentially, if a paremeter is 'undefined', then a default can be provided.  It works when destruring as well.
+
+Example:
+
+```javascript
+function calculate( age=33 ) {
+    console.log( age );
+}
+
+calculate();
+calculate(27)
+
+```
+
+This yields:
+
+```bash
+33
+27
+```
+
+
+```javascript
+const {age = 33} = {}
+console.log( age );
+```
+
+This yields:
+
+```bash
+33
+```
+
+```javascript
+const {age = 33} = {age: 22}
+console.log( age );
+```
+
+This yields:
+
+```bash
+22
+```
+
+<hr />
 
 ## Object Destructuring
 
@@ -216,48 +270,116 @@ Here's what's happening:
 
 So we can see in this example, we only really care about the first 3, and the rest is well the ...rest.
 
-## Parameters and Defaults
+<hr />
 
-This is another much needed addition in ES6.  Essentially, if a paremeter is 'undefined', then a default can be provided.  It works when destruring as well.
+## ES6 Classes
 
-Example:
+Width ES5, you could easily bring a lot of OOP to your code using protoype or other ways.  However, now we have 'proper' classes that have constructors, and methods like other languagses. Let's take a look.  
+
+Here's a simple class called ```Car``` that has a method called getColour (and setColour).  It also takes an argument that sets the colour of the Car in the Constructor.
 
 ```javascript
-function calculate( age=33 ) {
-    console.log( age );
-}
+class Car {
 
-calculate();
-calculate(27)
+  constructor( colour ) {
+    this.setColour(colour);
+  }
+
+  getColour() {
+    return this.colour;
+  }
+
+  setColour( colour ) {
+    this.colour = colour ? colour : 'black';
+  }
+
+} // end class
+
+const myCar1 = new Car();
+console.log( myCar1.getColour());
+
+const myCar2 = new Car('red');
+console.log( myCar2.getColour());
+```
+
+This yields:
+
+```bash
+black
+red
+```
+
+### Extending Classes
+
+Now let's see how subclassing works.  i.e. extending a Base class to make it more functional.  Here we create a new class 'SuperCar' that extends Car and adds a new function ```activateTurbo``` and also overrides te base class ```getTopSpeed``` function.
+
+Notice how we use the getColour function in the SuperCar class which is defined in the base class.
+
+```javascript
+class Car {
+
+  constructor( colour ) {
+    this.setColour(colour);
+  }
+
+  getColour() {
+    return this.colour;
+  }
+
+  setColour( colour ) {
+    this.colour = colour ? colour : 'black';
+  }
+
+  getTopSpeed() {
+     return '100kmh';
+  }
+
+} // end class
+
+class SuperCar extends Car {
+
+  activateTurbo() {
+    console.log( 'Turbo activated!!!!' );
+  }
+
+  getTopSpeed() {
+     return '300kmh';
+  }
+
+} // end class
+
+const myCar1 = new Car();
+console.log( myCar1.getColour());
+
+const myCar2 = new Car('red');
+console.log( myCar2.getColour());
+
+console.log( myCar1.getTopSpeed());
+
+const superCar = new SuperCar('red');
+console.log( myCar2.getColour());
+superCar.activateTurbo();
+console.log( superCar.getTopSpeed());
 
 ```
 
 This yields:
 
 ```bash
-33
-27
+black
+red
+100kmh
+red
+Turbo activated!!!!
+300kmh
 ```
 
+### Class Summary
 
-```javascript
-const {age = 33} = {}
-console.log( age );
-```
+Pretty cool!
 
-This yields:
+ES6 classes now make JavaScript look like other OOP languages like Java.  As you will see in the stateful React Components lesson, there are certain 'lifecycle' methods you override (such as render).  These components exploit ES6 classes.  (Of course, there are now ReactHooks... but we'll explore all of that soon.)
 
-```bash
-33
-```
 
-```javascript
-const {age = 33} = {age: 22}
-console.log( age );
-```
 
-This yields:
 
-```bash
-22
-```
