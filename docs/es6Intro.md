@@ -4,7 +4,7 @@ ES=ECMAScript. ECMA = European Computer Manfucatures Association -- but simply k
 
 ES6 is an evolution of Javascript.  The legacy Javascript that is still prevalent on many web sites is known as ES5. 
 
-### what are the differences?
+### What are the differences?
 
 There are many... some you will find more useful than others, and some you will not be able to live without. Let's start with some simple things.
 
@@ -23,7 +23,7 @@ let myVar
 const myVar
 ```
 
-The primary difference between these is that lt and const are block scoped. Consider this:
+The primary difference between these is that let and const are block scoped. Consider this:
 
 ```Javascript
 {
@@ -35,7 +35,7 @@ console.log( myvar )
 
 This yields 'hello world'
 
-Now, let try...
+Now, let's try...
 
 ```Javascript
 {
@@ -48,7 +48,7 @@ console.log( myvar )
 This yields:
 
 ```bash
-console.log( myvar )         ^
+console.log( myvar )
 
 ReferenceError: myvar is not defined
 
