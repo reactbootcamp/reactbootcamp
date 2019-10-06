@@ -138,4 +138,126 @@ This yields: (Note Window vs Helper1)
 
 In an arrow function, "this" represents the **owner** of the functionb.  Without an arrow, "this" represents the **object that calls the function**.
 
+## Object Destructuring
 
+Destructuring assignment allows you to assign 1 or more values from an object or array to named variables in a single step.
+
+
+```javascript
+const cars = {
+    type: 'Mercedes',
+    color: 'Silver'
+}
+let { type, color } = cars
+console.log( type, color) 
+```
+
+Another example:
+
+ES5
+```javascript
+var firstValue = values[0];
+var secondValue = values[1];
+var thirdValue = values[2];
+```
+
+ES6
+```javascript
+let [firstValue, secondValue, thirdValue] = values;
+```
+
+## Rest and Spread
+
+Rest and Spread are very handy additions to ES6.  Here's an example
+
+```javascript
+const f1Teams = [
+    'Mercedes', 'Ferrari', 'Red Bull', 'McLaren', 'Renault', 'Toro Rosso', 'Racing Point', 'Alfa Romeo', 'Haas', 'Williams'
+]
+
+console.log(f1Teams);
+
+function logLeaders(first, second, third, ...rest) {
+    console.log(first);
+    console.log(second);
+    console.log(third);
+    console.log(...rest);
+
+}
+const f1Leaders = [first, second, third, ...rest] = f1Teams;
+logLeaders(...f1Leaders)
+```
+
+This yields:
+
+```bash
+[ 'Mercedes',
+  'Ferrari',
+  'Red Bull',
+  'McLaren',
+  'Renault',
+  'Toro Rosso',
+  'Racing Point',
+  'Alfa Romeo',
+  'Haas',
+  'Williams' ]
+Mercedes
+Ferrari
+Red Bull
+McLaren Renault Toro Rosso Racing Point Alfa Romeo Haas Williams
+```
+
+Here's what's happening:
+
+1. We create an array tat holds he name of F1 Teams
+1. This line ```const f1Leaders = [first, second, third, ...rest] = f1Teams;``` creates a new Array from f1Teams
+1. The line ```logLeaders(...f1Leaders)``` calls the function logLeaders but using the spread operator on the Array
+1. The function logLeaders has 4 arguments.  The first 3 values in the array are assigned and the 'rest' are simply catered for via the ...rest argument
+
+So we can see in this example, we only really care about the first 3, and the rest is well the ...rest.
+
+## Parameters and Defaults
+
+This is another much needed addition in ES6.  Essentially, if a paremeter is 'undefined', then a default can be provided.  It works when destruring as well.
+
+Example:
+
+```javascript
+function calculate( age=33 ) {
+    console.log( age );
+}
+
+calculate();
+calculate(27)
+
+```
+
+This yields:
+
+```bash
+33
+27
+```
+
+
+```javascript
+const {age = 33} = {}
+console.log( age );
+```
+
+This yields:
+
+```bash
+33
+```
+
+```javascript
+const {age = 33} = {age: 22}
+console.log( age );
+```
+
+This yields:
+
+```bash
+22
+```
