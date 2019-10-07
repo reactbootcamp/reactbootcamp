@@ -381,5 +381,141 @@ Pretty cool!
 ES6 classes now make JavaScript look like other OOP languages like Java.  As you will see in the stateful React Components lesson, there are certain 'lifecycle' methods you override (such as render).  These components exploit ES6 classes.  (Of course, there are now ReactHooks... but we'll explore all of that soon.)
 
 
+## Map
+
+Maps
+Maps substitute objects to store key/value pairs. Pairs are stored as 2-element arrays [key, value].
+Maps can use any value as key besides strings but objects can’t.
+Some common methods:
+
+```javascript
+map.size       // returns its size
+map.entries()  // returns entries in insertion order [k,v]
+map.keys()     // returns just values in insertion order [k]
+map.values()   // returns just values in insertion order [v]
+```
+
+### In order to manipulate its content
+
+```javascript
+map.has(key)  // boolean
+map.set(key, value)
+map.get(key) // value
+map.delete(key)
+```
+
+Map implements the in-built iterable so it can be used with for..of. You should be able to follow the code below now.
+
+```javascript
+let x = new Map([[1, 'is a number key']]);
+let today = new Date()
+
+//anything can be a key
+x.set(today.toString(), 111)
+x.set(today, 222);
+x.delete(today.toString());
+
+console.log('The map contains', x.size, 'elements.');
+console.log('The map has a today Date key:', x.has(today));
+console.log('The map has a today string key:', x.has(today.toString()));
+
+//values and keys
+x.forEach((value, key, map) => console.log(value, key, map));
+
+//iterable
+for (let value of x) {
+  console.log(value);
+}
+
+//iterable values
+for (let value of x.values()) {
+  console.log(value);
+}
+
+//iterable keys
+for (let value of x.keys()) {
+  console.log(value);
+}
+
+//iterable entries (key, value)
+for (let value of x.entries()) {
+  console.log(value);
+}
+```
 
 
+## Promises
+
+Support for promises is a very nice addition to the language. The example below creates a promise that will call res (resolve) after a second. Then immediately, after that, it will call coolFn logging “cool” to the console.
+
+```javascript
+var longFn = function() {
+  return new Promise(function(res, rej) {
+    setTimeout(res, 1000);
+  });
+};
+
+var coolFn = function() {
+  console.log('cool');
+};
+
+// logs cool after 1 second
+longFn().then(coolFn);
+```
+
+## Sets
+
+Sets are a useful data-type for scenarios where we have to avoid repetitions and use heterogeneous data-types elements (String, Array, Number, etc.). Some common methods are:
+set.size       returns its size
+set.entries()  returns entries in insertion order [v]
+set.keys()     returns just values in insertion order [v]
+set.values()   returns just values in insertion order [v]
+In order to manipulate its content
+set.has(value)  // boolean
+set.add(value)
+set.delete(value)
+See the code below
+
+```javascript
+let x = new Set([1, 2, 3, 4, 4, 4, 5]);
+
+x.add(6);
+x.delete(2);
+
+console.log('The set contains', x.size, 'elements.');
+console.log('The set has 1:', x.has(1));
+console.log('The set has 8:', x.has(8));
+
+//values and keys are the same in a set
+x.forEach((value, key, set) => console.log(value, key, set));
+
+//iterable
+for (let value of x) {
+  console.log(value);
+}
+
+//iterable values
+for (let value of x.values()) {
+  console.log(value);
+}
+
+//iterable keys
+for (let value of x.keys()) {
+  console.log(value);
+}
+
+//iterable entries (key, value)
+for (let value of x.entries()) {
+  console.log(value);
+}
+```
+
+# Template literals
+The best for the end! This feature almost removes the need for a complex template system. It uses the special character `template literal` to delimit a template literal string. We can then inject values into it by using ${value} syntax.
+
+```javascript
+let person = {name: 'John Smith'};
+let tpl = `My name is ${person.name}.`;
+
+console.log(tpl);
+```
