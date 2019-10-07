@@ -519,3 +519,16 @@ let tpl = `My name is ${person.name}.`;
 
 console.log(tpl);
 ```
+
+```javascript
+(async function () {
+    async function doStuff() {
+        return new Promise(resolve => setTimeout(() => resolve('data from response is -> ok'), 2500))
+    }
+    console.time('await');
+    const response = await doStuff();
+    console.log(response);
+    console.timeEnd('await');
+
+})();
+```
