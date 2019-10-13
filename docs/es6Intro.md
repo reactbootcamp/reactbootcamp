@@ -476,15 +476,73 @@ Async/Await offer us a cleaner way to use promises. Let's look at an example. We
 
 ## Sets
 
+<<<<<<< Updated upstream
 Sets are a useful data-type for scenarios where we have to avoid repetitions and use heterogeneous data-types elements (String, Array, Number, etc.). Some common methods are:
 set.size returns its size
 set.entries() returns entries in insertion order [v]
 set.keys() returns just values in insertion order [v]
 set.values() returns just values in insertion order [v]
+=======
+A Set is a special type collection – “set of values” (without keys), where each value may occur only once.  That's the key...a Set is a collection of uniqeue values.
+
+This example should explain.
+
+```javascript
+let mySet = new Set();
+mySet.add('john')
+mySet.add('jane');
+mySet.add('charles');
+
+console.log( `The size  of mySet is ${mySet.size}`)
+mySet.add('john')
+mySet.add('jane');
+mySet.add('charles');
+
+console.log( `The size  of mySet is ${mySet.size}`)
+```
+
+This yields
+
+```bash
+The size  of mySet is 3
+The size  of mySet is 3
+```
+
+As you can see, only uniqeue values are allowed.  NOw, let's chenge it to:
+
+```javascript
+let mySet = new Set();
+mySet.add('john')
+mySet.add('jane');
+mySet.add('charles');
+
+console.log( `The size  of mySet is ${mySet.size}`)
+mySet.add('john1')
+mySet.add('jane1');
+mySet.add('charles1');
+
+console.log( `The size  of mySet is ${mySet.size}`)
+```
+
+This yields
+
+```bash
+The size  of mySet is 3
+The size  of mySet is 6
+```
+
+```javascript
+set.size       returns its size
+set.entries()  returns entries in insertion order [v]
+set.keys()     returns just values in insertion order [v]
+set.values()   returns just values in insertion order [v]
+>>>>>>> Stashed changes
 In order to manipulate its content
 set.has(value) // boolean
 set.add(value)
 set.delete(value)
+```
+
 See the code below
 
 ```javascript
